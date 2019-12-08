@@ -29,14 +29,10 @@
   </style>
   <body onload="getDate()">
     <p>Days since TEMOTHY's last power outage:</p>
-    <h1 id="test"></h1>
+    <h1 id="currentRecord"></h1>
     <hr />
-    <p>
-      Previous Record: <b>71</b>
-      <br />
-      Best Record: <b>71</b>
-      <br />
-    </p>
+    <p id="previousRecord">Previous Record: <b>71</b></p>
+    <p id="bestRecord">Best Record: <b>71</b></p>
     <hr />
 
     <p>
@@ -53,10 +49,17 @@
   <script>
     async function getDate() {
       let response = await fetch('http://localhost:3030/api/v1.0/date');
-      let days = await response.json();
+      let recordData = await response.json();
 
       //To display the final no. of days (result)
-      document.getElementById('test').innerHTML = days;
+      document.getElementById('currentRecord').innerHTML =
+        recordData.currentRecord;
+      document.getElementById(
+        'previousRecord'
+      ).innerHTML = `Previous Record: <b>${recordData.prevRecord}</b>`;
+      document.getElementById(
+        'bestRecord'
+      ).innerHTML = `Best Record: <b>${recordData.bestRecord}</b>`;
     }
   </script>
 </html>
