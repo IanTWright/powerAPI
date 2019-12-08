@@ -1,0 +1,23 @@
+<body>
+  <div>
+    <center>
+        <a href="#" onclick="reset()">
+            <img src="img/redbutton.png"></img>
+        </a>
+    </center>
+  </div>
+</body>
+<script>
+  async function reset() {
+    await fetch('https://temothy.herokuapp.com/api/v1.0/date/reset').then((res) => {
+      if (res.status != 200) {
+        console.log(res)
+        alert('There was an error turning off the power')
+      }
+      if (res.status === 200) {
+        console.log(res.status)
+        alert('The power has gone out!');
+      }
+    });
+  }
+</script>

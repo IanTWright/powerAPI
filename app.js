@@ -1,6 +1,6 @@
 // Load Required Modules
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 // Import Routes
 const date = require('./routes/date');
@@ -9,8 +9,8 @@ const date = require('./routes/date');
 const app = express();
 
 // Body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 // Express Headers
 app.use(function(req, res, next) {
@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 // Define Route URIs
 app.use('/api/v1.0/date', date);
 
-// Define port variable. Defaults to 5000 if not set
+// Define port variable. Defaults to 3030 if not set
 const port = process.env.PORT || 3030;
 
 // Start Express
