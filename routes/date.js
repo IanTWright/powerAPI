@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/reset', (req, res) => {
+router.post('/reset', (req, res) => {
   loadFile('data.json')
     .then(() => {
       newObject = {
@@ -32,6 +32,35 @@ router.get('/reset', (req, res) => {
         prevRecord: currentRecord,
         bestRecord: bestRecord
       };
+
+      let newData = JSON.stringify(newObject);
+      fs.writeFileSync('data.json', newData);
+      res.status(200).send(newData);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+});
+
+router.post('/set', (req, res) => {
+  loadFile('data.json')
+    .then(() => {
+      console.log(req.body);
+      newObject = {
+        origDate: moment(req.body.origDate, 'YYYY-MM-DD')
+      };
+
+      if (req.body.prevRecord) {
+        newObject.prevRecord = req.body.prevRecord;
+      } else {
+        newObject.prevRecord = prevRecord;
+      }
+
+      if (req.body.bestRecord) {
+        newObject.bestRecord = req.body.bestRecord;
+      } else {
+        newObject.bestRecord = bestRecord;
+      }
 
       let newData = JSON.stringify(newObject);
       fs.writeFileSync('data.json', newData);
@@ -57,6 +86,9 @@ function checkRecord(jsonObject, currentRecord) {
   let prevRecord = jsonObject.prevRecord;
   let bestRecord = jsonObject.bestRecord;
   let data = {};
+  if (!bestRecord) {
+    bestRecord = 0;
+  }
 
   if (currentRecord > bestRecord) {
     data.origDate = jsonObject.origDate;

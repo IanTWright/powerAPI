@@ -1,6 +1,6 @@
 // Load Required Modules
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 // Import Routes
 const date = require('./routes/date');
@@ -8,9 +8,9 @@ const date = require('./routes/date');
 // Define App
 const app = express();
 
-// Body parser middleware
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
+//Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Express Headers
 app.use(function(req, res, next) {
