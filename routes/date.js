@@ -110,7 +110,7 @@ async function loadFile(fileName) {
       if (err) {
         reject(err);
       } else {
-        let currentDate = moment();
+        let currentDate = moment().utcOffset(-240);
         jsonObject = JSON.parse(data);
         origDate = moment(jsonObject.origDate, 'YYYY-MM-DD');
         currentRecord = currentDate.diff(origDate, 'days');
